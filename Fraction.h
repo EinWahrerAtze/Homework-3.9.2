@@ -17,8 +17,7 @@ public:
 	Fraction operator--();
 	Fraction operator--(int);
 private:
-	// Наибольший общий делитель
-	int gcd(int x, int y);
-	int numenator_;
-	int denominator_;
+	int gcd(int x, int y);			// Наибольший общий делитель
+	int numenator_;					// Числитель
+	int denominator_;				// Знаменатель
 };
