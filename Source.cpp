@@ -18,7 +18,7 @@ int main()
 	int n = 0;
 	int d = 0;
 	const int SIZE = 2;
-	Fraction * frac_arr[SIZE];
+	Fraction * fractions[SIZE];
 
 	for (int i = 0; i < SIZE; ++i)
 	{
@@ -26,24 +26,27 @@ int main()
 		check_input(n);
 		std::wcout << L"Введите знаменатель дроби " << i + 1 << L": ";
 		check_input(d);
-		frac_arr[i] = new Fraction(n, d);
+		fractions[i] = new Fraction(n, d);
 	}
-//	frac_arr[0]->operator+(*(frac_arr[1]));
-	std::wcout << *(frac_arr[0]) << L" + " << *(frac_arr[1]) << L" = " << *(frac_arr[0]) + *(frac_arr[1]) << L'\n';
-	std::wcout << *(frac_arr[0]) << L" - " << *(frac_arr[1]) << L" = " << *(frac_arr[0]) - *(frac_arr[1]) << L'\n';
-	std::wcout << *(frac_arr[0]) << L" * " << *(frac_arr[1]) << L" = " << *(frac_arr[0]) * *(frac_arr[1]) << L'\n';
-	std::wcout << *(frac_arr[0]) << L" / " << *(frac_arr[1]) << L" = " << *(frac_arr[0]) / *(frac_arr[1]) << L'\n';
-//	frac_arr[0]->operator++();
-//	frac_arr[0]->operator*(*(frac_arr[1]));
-	std::wcout << L"++" << *(frac_arr[0]) << L" * " << *(frac_arr[1]) << L" = " << ++(*(frac_arr[0])) * *(frac_arr[1]) << L'\n';
-	std::wcout << L"Значение дроби 1 = " << ++(*(frac_arr[0])) << L'\n';
-	std::wcout << ++(*(frac_arr[0])) << L"-- * " << *(frac_arr[1]) << L" = " << (++(*(frac_arr[0])))-- * *(frac_arr[1]) << L'\n';
-	std::wcout << L"Значение дроби 1 = " << --(++(*(frac_arr[0]))) << L'\n';
-	std::wcout << *(frac_arr[0]) << L" - -(" << *(frac_arr[1]) << L") = " << *(frac_arr[0]) - -(*(frac_arr[1])) << L'\n';
+
+	std::wcout << *(fractions[0]) << L" + " << *(fractions[1]) << L" = " << *(fractions[0]) + *(fractions[1]) << L'\n';
+	std::wcout << *(fractions[0]) << L" - " << *(fractions[1]) << L" = " << *(fractions[0]) - *(fractions[1]) << L'\n';
+	std::wcout << *(fractions[0]) << L" * " << *(fractions[1]) << L" = " << *(fractions[0]) * *(fractions[1]) << L'\n';
+	std::wcout << *(fractions[0]) << L" / " << *(fractions[1]) << L" = " << *(fractions[0]) / *(fractions[1]) << L'\n';
+
+	std::wcout << L"++" << *(fractions[0]) << L" * " << *(fractions[1]) << L" = ";
+	std::wcout << ++(*(fractions[0])) * *(fractions[1]) << L'\n';
+	std::wcout << L"Значение дроби 1 = " << *(fractions[0]) << L'\n';
+
+	std::wcout << *(fractions[0]) << L"-- * " << *(fractions[1]) << L" = ";
+	std::wcout << (*(fractions[0]))-- * *(fractions[1]) << L'\n';
+	std::wcout << L"Значение дроби 1 = " << *(fractions[0]) << L'\n';
+
+	std::wcout << L"-(" << *(fractions[0]) << L") = " << -(*(fractions[0])) << L'\n';
 
 	for (int i = 0; i < SIZE; ++i)
 	{
-		delete frac_arr[i];
+		delete fractions[i];
 	}
 
 	return 0;
