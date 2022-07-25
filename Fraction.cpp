@@ -8,48 +8,41 @@ std::wostream & operator<<(std::wostream & os, const Fraction & f)
 	}
 	else if (f.numenator_ == 0 || f.denominator_ == 0)
 	{
-		return os << 0;
+		return os << L"-";
 	}
 	else
 	{
-		return os << f.numenator_ << "/" << f.denominator_;
+		return os << f.numenator_ << L"/" << f.denominator_;
 	}
 }
 
 Fraction::Fraction(int numenator, int demominator)
 {
-	numenator_ = numenator;
-	denominator_ = demominator;
+	int n = std::gcd(numenator, demominator);
+	numenator_ = numenator / n;
+	denominator_ = demominator / n;
 }
 
 Fraction Fraction::operator+(const Fraction & f)
 {
-	Fraction result (numenator_ * f.denominator_ + f.numenator_ * denominator_, denominator_ * f.denominator_);
-	int n = std::gcd(result.numenator_, result.denominator_);
-	result.numenator_ = result.numenator_ / n;
-	result.denominator_ = result.denominator_ / n;
-	return result;
+	int numenator = numenator_ * f.denominator_ + f.numenator_ * denominator_;
+	int denominator = denominator_ * f.denominator_;
+	return Fraction (numenator, denominator);
 }
 
 Fraction Fraction::operator-(const Fraction & f)
 {
-	Fraction result(-f.numenator_, f.denominator_);
-	return result + (*this);
+	return Fraction (-f.numenator_, f.denominator_) + *(this);
 }
 
 Fraction Fraction::operator*(const Fraction & f)
 {
-	Fraction result(numenator_ * f.numenator_, denominator_ * f.denominator_);
-	int n = std::gcd(result.numenator_, result.denominator_);
-	result.numenator_ = result.numenator_ / n;
-	result.denominator_ = result.denominator_ / n;
-	return result;
+	return Fraction(numenator_ * f.numenator_, denominator_ * f.denominator_);
 }
 
 Fraction Fraction::operator/(const Fraction & f)
 {
-	Fraction result(f.denominator_, f.numenator_);
-	return result * (*this);
+	return Fraction (f.denominator_, f.numenator_) * *(this);
 }
 
 Fraction Fraction::operator++()

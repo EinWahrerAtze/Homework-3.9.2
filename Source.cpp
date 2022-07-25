@@ -13,7 +13,7 @@ void check_input(int & n)
 
 int main()
 {
-	setlocale(LC_ALL, "Russian");
+	setlocale(LC_ALL, "ru_RU.UTF-8");
 
 	int n = 0;
 	int d = 0;
@@ -26,6 +26,13 @@ int main()
 		check_input(n);
 		std::wcout << L"Введите знаменатель дроби " << i + 1 << L": ";
 		check_input(d);
+
+		if (d < 0)
+		{
+			n = -n;
+			d = -d;
+		}
+
 		fractions[i] = new Fraction(n, d);
 	}
 
