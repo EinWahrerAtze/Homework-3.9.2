@@ -4,7 +4,6 @@ void cls()
 {
 #if defined(_WIN32)
 	system("cls");
-
 #else
 	system("clear")
 #endif
@@ -29,7 +28,7 @@ int main()
 	int d = 0;
 	wchar_t ans = L'0';
 	const int SIZE = 2;
-	Fraction * fractions[SIZE];
+	Fraction * fractions[SIZE](nullptr);
 
 	while (towupper(ans) != L'E')
 	{
