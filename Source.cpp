@@ -77,12 +77,12 @@ int main()
 			std::cin.ignore(32767, '\n');
 		}
 
-		for (int i = 0; i < SIZE; ++i)
-		{
-			delete fractions[i];
-		}
-
 		cls();
+	}
+
+	for (int i = 0; i < SIZE; ++i)
+	{
+		delete fractions[i];
 	}
 
 	return 0;
