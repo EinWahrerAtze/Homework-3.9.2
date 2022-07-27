@@ -6,9 +6,17 @@ std::wostream & operator<<(std::wostream & os, const Fraction & f)
 	{
 		return os << 1;
 	}
-	else if (f.numenator_ == 0 || f.denominator_ == 0)
+	else if (f.numenator_ == 0)
 	{
-		return os << L"-";
+		return os << L"0";
+	}
+	else if (f.denominator_ == 1)
+	{
+		return os << f.numenator_;
+	}
+	else if (f.denominator_ == 0)
+	{
+		return os << L"inf";
 	}
 	else
 	{
@@ -32,7 +40,8 @@ Fraction Fraction::operator+(const Fraction & f)
 
 Fraction Fraction::operator-(const Fraction & f)
 {
-	return Fraction (-f.numenator_, f.denominator_) + *(this);
+	Fraction tmp = f;
+	return *this + (-tmp);
 }
 
 Fraction Fraction::operator*(const Fraction & f)
@@ -42,7 +51,7 @@ Fraction Fraction::operator*(const Fraction & f)
 
 Fraction Fraction::operator/(const Fraction & f)
 {
-	return Fraction (f.denominator_, f.numenator_) * *(this);
+	return *this * Fraction (f.denominator_, f.numenator_);
 }
 
 Fraction Fraction::operator++()
@@ -73,5 +82,5 @@ Fraction Fraction::operator--(int)
 
 Fraction Fraction::operator-()
 {
-	return (*this) * Fraction(-1, 1);
+	return *this * Fraction(-1, 1);
 }

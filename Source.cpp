@@ -1,5 +1,15 @@
 #include "Fraction.h"
 
+void cls()
+{
+#if defined(_WIN32)
+	system("cls");
+
+#else
+	system("clear")
+#endif
+}
+
 void check_input(int & n)
 {
 	while (!(std::wcin >> n) || (n == 0))
@@ -17,43 +27,63 @@ int main()
 
 	int n = 0;
 	int d = 0;
+	wchar_t ans = L'0';
 	const int SIZE = 2;
 	Fraction * fractions[SIZE];
 
-	for (int i = 0; i < SIZE; ++i)
+	while (towupper(ans) != L'E')
 	{
-		std::wcout << L"Введите числитель дроби " << i + 1 << L": ";
-		check_input(n);
-		std::wcout << L"Введите знаменатель дроби " << i + 1 << L": ";
-		check_input(d);
-
-		if (d < 0)
+		for (int i = 0; i < SIZE; ++i)
 		{
-			n = -n;
-			d = -d;
+			std::wcout << L"Введите числитель дроби " << i + 1 << L": ";
+			check_input(n);
+			std::wcout << L"Введите знаменатель дроби " << i + 1 << L": ";
+			check_input(d);
+
+			if (d < 0)
+			{
+				n = -n;
+				d = -d;
+			}
+
+			fractions[i] = new Fraction(n, d);
 		}
 
-		fractions[i] = new Fraction(n, d);
-	}
+		cls();
 
-	std::wcout << *(fractions[0]) << L" + " << *(fractions[1]) << L" = " << *(fractions[0]) + *(fractions[1]) << L'\n';
-	std::wcout << *(fractions[0]) << L" - " << *(fractions[1]) << L" = " << *(fractions[0]) - *(fractions[1]) << L'\n';
-	std::wcout << *(fractions[0]) << L" * " << *(fractions[1]) << L" = " << *(fractions[0]) * *(fractions[1]) << L'\n';
-	std::wcout << *(fractions[0]) << L" / " << *(fractions[1]) << L" = " << *(fractions[0]) / *(fractions[1]) << L'\n';
+		std::wcout << *(fractions[0]) << L" + " << *(fractions[1]) << L" = " << *(fractions[0]) + *(fractions[1]) << L'\n';
+		std::wcout << *(fractions[0]) << L" - " << *(fractions[1]) << L" = " << *(fractions[0]) - *(fractions[1]) << L'\n';
+		std::wcout << *(fractions[0]) << L" * " << *(fractions[1]) << L" = " << *(fractions[0]) * *(fractions[1]) << L'\n';
+		std::wcout << *(fractions[0]) << L" / " << *(fractions[1]) << L" = " << *(fractions[0]) / *(fractions[1]) << L'\n';
 
-	std::wcout << L"++" << *(fractions[0]) << L" * " << *(fractions[1]) << L" = ";
-	std::wcout << ++(*(fractions[0])) * *(fractions[1]) << L'\n';
-	std::wcout << L"Значение дроби 1 = " << *(fractions[0]) << L'\n';
+		std::wcout << L"++" << *(fractions[0]) << L" * " << *(fractions[1]) << L" = ";
+		std::wcout << ++(*(fractions[0])) * *(fractions[1]) << L'\n';
+		std::wcout << L"Значение дроби 1 = " << *(fractions[0]) << L'\n';
 
-	std::wcout << *(fractions[0]) << L"-- * " << *(fractions[1]) << L" = ";
-	std::wcout << (*(fractions[0]))-- * *(fractions[1]) << L'\n';
-	std::wcout << L"Значение дроби 1 = " << *(fractions[0]) << L'\n';
+		std::wcout << *(fractions[0]) << L"-- * " << *(fractions[1]) << L" = ";
+		std::wcout << (*(fractions[0]))-- * *(fractions[1]) << L'\n';
+		std::wcout << L"Значение дроби 1 = " << *(fractions[0]) << L'\n';
 
-	std::wcout << L"-(" << *(fractions[0]) << L") = " << -(*(fractions[0])) << L'\n';
+		std::wcout << L"-(" << *(fractions[0]) << L") = " << -(*(fractions[0])) << L"\n\n";
 
-	for (int i = 0; i < SIZE; ++i)
-	{
-		delete fractions[i];
+		std::wcin.get();
+		std::wcout << L"Чтобы перезапустить, нажмите 'R', 'E' чтобы выйти: ";
+		std::wcin.get(ans);
+		std::cin.ignore(32767, '\n');
+
+		while (towupper(ans) != L'E' && towupper(ans) != L'R')
+		{
+			std::wcout << L"Введите 'R', 'E': ";
+			std::wcin.get(ans);
+			std::cin.ignore(32767, '\n');
+		}
+
+		for (int i = 0; i < SIZE; ++i)
+		{
+			delete fractions[i];
+		}
+
+		cls();
 	}
 
 	return 0;
